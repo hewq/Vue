@@ -1,0 +1,15 @@
+#system and IDE files
+Thumbs.db
+.DS_Store
+.Trash
+.idea/
+nohup.out
+
+# Vendors
+node_modules/
+
+# other
+
+*.zip
+*.mp4
+*.fla
