@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		.box {
+			width: 50px;
+			height:  50px;
+			background-color: red;
+		}
+		.box.active {
+			background-color: green;
+		}
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="text/javascript" src="../../node_modules/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		// 创建实例化对象
+		new Vue({
+			el: '#app',
+			data () {
+				return {
+					// 数据属性
+					msg: '指令系统',
+					msg2: '<h2>指令系统</h2>',
+					isShow: true,
+					isGreen: true,
+					menuList: [
+						{id: 1, name: '鸡腿', price: 30},
+						{id: 2, name: '鹅腿', price: 60},
+						{id: 3, name: '鸭腿', price: 20}
+					],
+					person: {
+						name: 'zhangsan',
+						age: 20,
+						fav: 'hahah'
+					}
+				}
+			},
+			template: `
+				<div class="app">
+					<h2>{{msg}}</h2>
+					<p v-text="msg"></p>
+					<div v-html="msg2"></div>
+					<div v-text="1+1"></div>
+					<div v-if="isShow">v-if</div>
+					<div v-if="Math.random() > 0.5"> 显示</div>
+					<div v-else>隐藏</div>
+					<div v-show="isShow">显示</div>
+					<div v-show="!isShow">隐藏</div>
+					<div class="box" v-bind:class = "{active: isGreen}" v-on:click="clickHandler"></div>
+					<div class="box" :class = "{active: !isGreen}" @click="clickHandler">v-bind 简写</div>
+					<ul>
+						<li v-for="(item, index) in menuList">
+							<h5 v-text="item.id"></h5>
+							<h3>{{item.name}}</h3>
+							<em>{{item.price}}</em>
+						</li>
+					</ul>
+					<ul>
+						<li v-for="(value, key) in person">
+							{{key}} === {{value}}
+						</li>
+					</ul>
+				</div>
+			`,
+			methods: {
+				clickHandler (e) {
+					console.log(e);
+					this.isGreen = !this.isGreen;
+				}
+			}
+		})
+	</script>
+</body>
+</html>
