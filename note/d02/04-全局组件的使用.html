@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		.default {
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    color: #606266;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    transition: .1s;
+    font-weight: 500;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="text/javascript" src="../../node_modules/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		// 全局组件
+		Vue.component('Vbtn', {
+			template: `
+				<!-- 插槽 内置组件 slot 作为承载分发内容的出口 -->
+				<button class="defalut" :class="type">
+					<slot>
+						按钮
+					</slot>
+				</button>
+			`,
+			props: ["type"]
+		})
+		var Vheader = {
+			template: `
+				<div>
+					我是头部组件
+				</div>
+			`
+		};
+
+		var Vaside = {
+			template: `
+				<div>
+					我是侧边组件
+				</div>
+			`
+		};
+
+		var Vcontent = {
+			template: `
+				<div>
+					我是内容组件
+					<Vbtn type="primary">主要按钮</Vbtn>
+					<Vbtn type="success">成功按钮</Vbtn>
+				</div>
+			`
+		};
+
+		var App = {
+			template: `
+				<div>
+					<Vheader />
+					<div>
+						<Vaside />
+						<Vcontent />
+					</div>
+				</div>
+			`,
+			components: {
+				Vheader,
+				Vaside,
+				Vcontent
+			}
+		}
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+
+				}
+			},
+			components: {
+				App
+			},
+			template: `<App />`
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="text/javascript" src="../../node_modules/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		Vue.component('Test', {
+			data() {
+				return {
+					msg: 'hello world'
+				}
+			},
+			template: `
+				<div>
+					<div id="test">{{msg}}</div>
+					<button @click="changeHandler">change</button>
+				</div>
+			`,
+			methods: {
+				changeHandler() {
+					this.msg += 'hhh';
+				}
+			},
+			beforeCreate() {
+				// 组件创建之前
+				console.log(this.msg);
+			},
+			created() {
+				// 组件创建之后
+				console.log(this.msg);
+				// 使用该组件，就会调用 created 方法
+				// 在 created 这个方法中可以操作后端的数据，也就是数据驱动视图
+				// 应用：发起 ajax 请求
+			},
+			beforeMount() {
+				// 挂载数据到 DOM 之前会调用
+				console.log(document.getElementById('app'));
+			},
+			mounted() {
+				// 挂载数据到 DOM 之后会调用
+				console.log(document.getElementById('app'));
+			},
+			beforeUpdate() {
+				// 更新 DOM 之前调用该钩子，应用：可以获取原始的 DOM
+				console.log(document.getElementById('test').innerHTML);
+			},
+			updated() {
+				// 更新 DOM 之后调用该钩子，应用：可以获取更新后的 DOM
+				console.log(document.getElementById('test').innerHTML);
+			},
+			beforeDestroy() {
+				console.log('before destory');
+			},
+			destroyed() {
+				console.log('destroyed');
+			},
+			activated() {
+				console.log('active');
+			},
+			deactivated() {
+				console.log('deactivated');
+			}
+		});
+
+		var App = {
+			data() {
+				return {
+					isShow: true
+				}
+			},
+			// vue 内置组件 <keep-alive></keep-alive> 能在组件的切换过程中将状态保留在内存中。防止重复渲染 DOM
+			template: `
+				<div id="app">
+					<keep-alive>
+						<Test v-if="isShow" />
+					</keep-alive>
+					<button @click="isShow=!isShow">i am here</button>
+				</div>
+			`
+		}
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+
+				}
+			},
+			template: `<App />`,
+			components: {
+				App
+			}
+		});
+	</script>
+</body>
+</html>
