@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<div id="app"></div>
+	<!-- 1. 引入 vue 模块 -->
+	<script type="text/javascript" src="../../node_modules/vue/dist/vue.js"></script>
+	<!-- 2. 引入 vue-router 模块 -->
+	<script type="text/javascript" src="../../node_modules/vue-router/dist/vue-router.js"></script>
+
+	<script type="text/javascript">
+		// 3. 让 Vue 使用该 VueRouter 组件
+		// Vue.use(VueRouter)
+
+		var UserParams = {
+			template: `
+				<div>
+					<h2>user 1</h2>
+				</div>
+			`,
+			created() {
+				// 抛出这两个对象挂在到 Vue 实例对象上
+				console.log(this.$router);
+				console.log(this.$route.params.id);
+			}
+		};
+
+		var UserQuery = {
+			template: `
+				<div>
+					<h2>user 2</h2>
+				</div>
+			`
+		};
+		
+		// 4. 创建 router 对象
+		var router = new VueRouter({
+			// 5. 配置路由对象
+			routes: [
+				// 路由匹配的规则
+				{
+					// 动态路由参数 以冒号开头
+					path: "/user/:id",
+					name: "userP",
+					component: UserParams
+				},
+				{
+					path: "/user",
+					name: "userQ",
+					component: UserQuery
+				}
+			]
+		});
+
+		// 引入 vue-router 模块后会抛出来两个全局组件
+		// router-link 
+		// router-view: 路由匹配组件的出口
+		var App = {
+			template: `
+				<div>
+					<router-link :to="{name: 'userP', params:{id: 1}}">用户1</router-link>
+					<router-link :to="{name: 'userQ', query:{userId:2}}">用户2</router-link>
+					<router-view></router-view>
+				</div>
+			`
+		};
+		
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+
+				}
+			},
+			template: `
+				<App />
+			`,
+			// 6. 交给 Vue 实例化管理
+			router,
+			components: {
+				App
+			}
+		});
+	</script>
+</body>
+</html>

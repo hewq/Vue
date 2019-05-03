@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<div id="app"></div>
+	<!-- 1. 引入 vue 模块 -->
+	<script type="text/javascript" src="../../node_modules/vue/dist/vue.js"></script>
+	<!-- 2. 引入 vue-router 模块 -->
+	<script type="text/javascript" src="../../node_modules/vue-router/dist/vue-router.js"></script>
+
+	<script type="text/javascript">
+		// 3. 让 Vue 使用该 VueRouter 组件
+		// Vue.use(VueRouter)
+
+		var Home = {
+			template: `
+				<div>
+					<h2>home</h2>
+					<br />
+					<router-link to="/home/song">song</router-link>
+					<router-link to="/home/movie">movie</router-link>
+					<router-view></router-view>
+				</div>
+			`
+		};
+
+		var Song = {
+			template: `
+				<div>
+					<h2>song</h2>
+				</div>
+			`
+		};
+
+		var Movie = {
+			template: `
+				<div>
+					<h2>movie</h2>
+				</div>
+			`
+		};
+		
+		// 4. 创建 router 对象
+		var router = new VueRouter({
+			// 5. 配置路由对象
+			routes: [
+				// 路由匹配的规则
+				{
+					// 动态路由参数 以冒号开头
+					path: "/home",
+					name: "home",
+					component: Home,
+					children: [
+						{
+							path: "song",
+							component: Song
+						},
+						{
+							path: "movie",
+							component: Movie
+						}
+					]
+				}
+			]
+		});
+
+		// 引入 vue-router 模块后会抛出来两个全局组件
+		// router-link 
+		// router-view: 路由匹配组件的出口
+		var App = {
+			template: `
+				<div>
+					<router-link :to="{name: 'home'}">home</router-link>
+					<router-view></router-view>
+				</div>
+			`
+		};
+		
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+
+				}
+			},
+			template: `
+				<App />
+			`,
+			// 6. 交给 Vue 实例化管理
+			router,
+			components: {
+				App
+			}
+		});
+	</script>
+</body>
+</html>
