@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<router-link to='/home'>home</router-link>
+		<router-link to='/blog'>blog</router-link>
+		<router-link to='/login'>login</router-link>
+		<a href="javascript:void(0)">sign out</a>
+		<router-view></router-view>
+	</div>
+	<script type="text/javascript" src="../../node_modules/vue/dist/vue.js"></script>
+	<script type="text/javascript" src="../../node_modules/vue-router/dist/vue-router.js"></script>
+	<script type="text/javascript">
+		Vue.use(VueRouter);
+		
+		var Home = {
+			template: `
+				<div>home</div>
+			`
+		};
+
+		var Blog = {
+			template: `
+				<div>blog</div>
+			`
+		};
+
+		var Login = {
+			data() {
+				return {
+					name: '',
+					pwd: ''
+				}
+			},
+			template: `
+				<div>
+					<input type="text" v-model='name' />
+					<input type="password" v-model='pwd' />
+					<input type="button" value='login' @click='loginHandler' />
+				</div>
+			`,
+			methods: {
+				loginHandler() {
+					localStorage.setItem('user', {name: this.name, pwd: this.pwd});
+					this.$router.push({
+						name: 'blog'
+					})
+
+				}
+			}
+		};
+
+		
+		var router = new VueRouter({
+			routes: [
+				{
+					path: '/',
+					redirect: '/home'
+				},
+				{
+					path: '/home',
+					component: Home
+				},
+				{
+					path: '/blog',
+					component: Blog,
+					name: 'blog',
+					// 给未来的路由做权限控制
+					meta: {
+						auth: true
+					}
+				},
+				{
+					path: '/login',
+					component: Login
+				}
+			]
+		});
+		router.beforeEach((to, from, next) => {
+			console.log(to);
+			console.log(from);
+
+			if (to.meta.auth) {
+				if (localStorage.getItem('user')) {
+					next();
+				} else {
+					next({
+						path: '/login'
+					})
+				}
+			} else {
+				next();
+			}
+		})
+		var App = {
+			template: `
+				<div>
+					<router-link to='/timeline'>首页</router-link>
+					<router-link to='/pins'>沸点</router-link>
+					<keep-alive>
+						<router-view></router-view>
+					</keep-alive>
+				</div>
+			`
+		}
+		new Vue({
+			el: '#app',
+			router
+		});
+	</script>
+</body>
+</html>
