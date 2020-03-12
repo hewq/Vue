@@ -6,6 +6,7 @@
 </head>
 <body>
 	<!-- v-model 双向数据绑定的体现 -->
+	<!-- 只能应用在有 value 属性的 -->
 	<div id="app">
 		<input type="text" name="name" v-model="msg">
 		<input type="text" name="name" :value="msg" @input="valueChange">

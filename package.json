@@ -1,0 +1,24 @@
+{
+  "name": "Vue",
+  "version": "1.0.0",
+  "description": "学习 vue 过程中的一些笔记代码 学习中。。。",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hewq/Vue.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hewq/Vue/issues"
+  },
+  "homepage": "https://github.com/hewq/Vue#readme",
+  "dependencies": {
+    "vue": "^2.6.11"
+  }
+}

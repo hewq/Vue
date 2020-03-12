@@ -3,6 +3,8 @@ let bodyParser = require('body-parser');
 
 let app = express();
 
+app.use('/', express.static('./apps/'));
+
 // 配置body-parser中间件
 app.use(bodyParser.urlencoded({ extend: false }));
 app.use(bodyParser.json());
