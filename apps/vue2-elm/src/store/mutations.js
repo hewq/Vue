@@ -30,7 +30,7 @@ import {
 	BUY_CART,
 } from './mutation-types.js'
 
-import {setStore, getStore} from '../assets/scripts/utils'
+import {setStore, getStore} from '@/assets/scripts/utils'
 
 export default {
 	// 记录当前经纬度

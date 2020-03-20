@@ -52,7 +52,7 @@ export const getUser = () => {
 /**
  * 个人中心里编辑地址
  */
-export const getAddressList = (user_id) => {
+export const getAddressList = user_id => {
 	return axios.get(baseURL+'v1/users/'+user_id+'/addresses')
 }
 
@@ -72,5 +72,27 @@ export const accountLogin = (username, password, captcha_code) => {
 		username,
 		password,
 		captcha_code
+	})
+}
+
+/**
+ * 获取当前所在城市
+ */
+
+export const currentcity = number => {
+	return axios.get(baseURL+'v1/cities/'+number)
+}
+
+/**
+ * 获取搜索地址
+ */
+
+export const searchplace = (cityid, value) => {
+	return axios.get(baseURL+'v1/pois/', {
+		params: {
+			type: 'search',
+			city_id: cityid,
+			keyword: value
+		}
 	})
 }

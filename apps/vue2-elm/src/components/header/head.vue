@@ -36,7 +36,6 @@
 		mounted() {
 			// 获取用户信息
 			this.getUserInfo()
-            console.log(this.userInfo)
 		},
 		props: ['signinUp', 'headTitle', 'goBack'],
 		computed: {

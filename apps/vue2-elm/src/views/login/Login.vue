@@ -49,9 +49,9 @@
 
 <script>
     import {mapMutations} from 'vuex'
-	import headTop from '../../components/header/Head'
-	import alertTip from '../../components/common/alertTip'
-	import {getcaptchas, accountLogin} from '../../assets/scripts/getData'
+	import headTop from '@/components/header/Head'
+	import alertTip from '@/components/common/AlertTip'
+	import {getcaptchas, accountLogin} from '@/assets/scripts/getData'
 
 	export default {
 		data() {
