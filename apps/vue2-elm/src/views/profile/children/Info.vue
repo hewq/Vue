@@ -7,9 +7,6 @@
                 <h2>头像</h2>
                 <div class="headportrait-div">
                     <img :src="imgBaseUrl + userInfo.avatar" v-if="userInfo" class="headportrait-div-top" >
-                    <span class="headportrait-div-top" v-else>
-                        <svg viewBox="0 0 1024 1024" id="arrow-right" class="icon"><path d="M716.298 417.341l-.01.01L307.702 7.23l-94.295 94.649 408.591 410.117-408.591 410.137 94.295 94.639 502.891-504.76z" class="selected"></path></svg>
-                    </span>
                     <span class="headportrait-div-bottom">
                         <svg fill="#d8d8d8" viewBox="0 0 1024 1024" id="arrow-right" class="icon"><path d="M716.298 417.341l-.01.01L307.702 7.23l-94.295 94.649 408.591 410.117-408.591 410.137 94.295 94.639 502.891-504.76z" class="selected"></path></svg>
                     </span>
@@ -136,6 +133,8 @@
 <style lang="scss" scoped>
     @import '@/assets/style/mixin.scss';
 
+    [v-cloak] { display: none }
+    
     .rating_page{
         position: absolute;
         top: 0;
