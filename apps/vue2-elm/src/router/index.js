@@ -36,11 +36,11 @@ const routes = [{
         children: [{
             path: 'info',
             component: () =>
-                import ( /* webpackChunkName: "profile-info" */ '@/views/profile/children/Info.vue'),
+                import ( /* webpackChunkName: "info" */ '@/views/profile/children/Info.vue'),
             children: [{
                 path: 'setusername',
                 component: () =>
-                    import ( /* webpackChunkName: "profile-setusername" */ '@/views/profile/children/children/SetUsername.vue'),
+                    import ( /* webpackChunkName: "setusername" */ '@/views/profile/children/children/SetUsername.vue'),
             }, {
                 path: 'address',
                 component: () =>
@@ -48,11 +48,11 @@ const routes = [{
                 children: [{
                     path: 'add',
                     component: () =>
-                        import ( /* webpackChunkName: "profile-add" */ '@/views/profile/children/children/children/Add.vue'),
+                        import ( /* webpackChunkName: "add" */ '@/views/profile/children/children/children/Add.vue'),
                     children: [{
                         path: 'addDetail',
                         component: () =>
-                            import ( /* webpackChunkName: "profile-adddetail" */ '@/views/profile/children/children/children/children/AddDetail.vue'),
+                            import ( /* webpackChunkName: "adddetail" */ '@/views/profile/children/children/children/children/AddDetail.vue'),
                     }]
                 }]
             }]
