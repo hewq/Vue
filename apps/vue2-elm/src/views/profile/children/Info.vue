@@ -3,7 +3,7 @@
         <head-top head-title="账号信息" go-back="true"></head-top>
         <section class="profile-info">
             <section class="headportrait">
-                <input type="file" class="profileinfopanel-upload" @change="uploadAvatar">
+                <input ref="upload" type="file" class="profileinfopanel-upload" @change="uploadAvatar">
                 <h2>头像</h2>
                 <div class="headportrait-div">
                     <img :src="imgBaseUrl + userInfo.avatar" v-if="userInfo" class="headportrait-div-top" >
@@ -93,6 +93,8 @@
     import headTop from '@/components/header/Head'
     import {mapState, mapMutations} from 'vuex'
     import alertTip from '@/components/common/AlertTip'
+    import {setHeadImg, signout} from '@/assets/scripts/getData'
+    import {removeStore} from '@/assets/scripts/utils'
 
     export default {
         data() {
@@ -110,22 +112,74 @@
             }
         },
         components: {
-            headTop
+            headTop,
+            alertTip
         },
         computed: {
             ...mapState([
                 'userInfo'
             ])
+        },        
+        beforeDestroy(){
+            clearTimeout(this.timer)
         },
         methods: {
             ...mapMutations([
                 'OUT_LOGIN', 'SAVE_AVANDER'
             ]),
-            exitlogin() {},
-            waitingThing() {},
-            uploadAvatar() {},
-            changePhone() {},
-            outLogin() {}
+            exitlogin() {
+                this.show = true
+                this.isEnter = true
+                this.isLeave = false
+            },
+            waitingThing() {
+                clearTimeout(this.timer)
+                this.isEnter = false
+                this.isLeave = true
+                this.timer = setTimeout(() => {
+                    clearTimeout(this.timer)
+                    this.show = false
+                }, 200)
+            },
+            async uploadAvatar() {
+                // 上传头像
+                if (this.userInfo) {
+                    let input = this.$refs.upload
+                    let data = new FormData()
+                    data.append('file', input.files[0])
+                    try {
+                       let response = await setHeadImg(this.userInfo.user_id, data) 
+                       let res = JSON.stringify(response)
+                       if (res.status == 1) {
+                           this.userInfo.avatar = res.image_path
+                       }
+                    } catch (error) {
+                        this.showAlert = true
+                        this.alertText = '上传失败'
+                        throw new Error(error)
+                    }
+                }
+            },
+            changePhone() {
+                this.showAlert = true
+                this.alertText = '请在手机APP中设置'
+            },
+            async outLogin() {
+                this.OUT_LOGIN()
+                this.waitingThing()
+                this.$router.go(-1)
+                removeStore('user_id')
+                await signout()
+            }
+        },
+        watch: {
+            userInfo: function (value) {
+                if (value && value.user_id) {
+                    this.username = value.username
+                    this.infotel = value.mobile
+                    this.avatar = value.avatar
+                }
+            }
         }
     }
 </script>

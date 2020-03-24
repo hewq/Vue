@@ -57,7 +57,12 @@ const routes = [{
                 }]
             }]
         }]
-    }
+    },
+    {
+        path: '/forget',
+        component: () =>
+            import ( /* webpackChunkName: "forget" */ '@/views/forget/Forget.vue')
+    },
 ]
 
 const router = new VueRouter({

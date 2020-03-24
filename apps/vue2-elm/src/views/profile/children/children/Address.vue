@@ -1,11 +1,92 @@
 <template>
-    <div>address</div>
+    <div class="rating_page">
+        <head-top head-title="编辑地址" go-back="true">
+            <span slot="edit" class="edit" @click="editThing">{{editText}}</span>
+        </head-top>
+        <section class="address">
+            <ul class="addresslist">
+                <li v-for="(item, index) in removeAddress" :key="index">
+                    <div>
+                        <p>{{item.address}}</p>
+                        <p><span>{{item.phone}}</span><span v-if="item.phonepk">{{item.phonepk}}</span></p>
+                    </div>
+                    <div class="deletesite" v-if="deletesite">
+                        <span @click="deleteSite(index, item)">x</span>
+                    </div>
+                </li>
+            </ul>
+            <router-link to="/profile/info/address/add">
+                <div class="addsite">
+                    <span>新增地址</span>
+                    <span class="addsvg">
+                        <svg fill="#d8d8d8" viewBox="0 0 1024 1024" id="arrow-right" class="icon"><path d="M716.298 417.341l-.01.01L307.702 7.23l-94.295 94.649 408.591 410.117-408.591 410.137 94.295 94.639 502.891-504.76z" class="selected"></path></svg>
+                    </span>
+                </div>
+            </router-link>
+        </section>
+        <transition name="router-slid" mode="out-in">
+            <router-view></router-view>
+        </transition>
+    </div>
 </template>
 
 <script>
-export default {
-    
-}
+    import headTop from '@/components/header/Head'
+    import {mapState, mapActions} from 'vuex'
+    import {deleteAddress} from '@/assets/scripts/getData'
+
+    export default {
+        data() {
+            return {
+                deletesite: false,
+                editText: '编辑',
+                addresslist: []
+            }
+        },
+        computed: {
+            ...mapState([
+                'userInfo', 'removeAddress'
+            ])
+        },
+        components: {
+            headTop
+        },
+        mounted() {
+            this.initData()
+        },
+        methods: {
+            ...mapActions([
+                'saveAddress'
+            ]),
+            initData() {
+                if (this.userInfo && this.userInfo.user_id) {
+                    this.saveAddress()
+                }
+            },
+            editThing() {
+                if (this.editText == '编辑') {
+                    this.editText = '完成'
+                    this.deletesite = true
+                } else {
+                    this.editText = '编辑'
+                    this.deletesite = false
+                }
+            },
+            async deleteSite(index, item) {
+                if (this.userInfo && this.userInfo.user_id) {
+                    await deleteAddress(this.userInfo.user_id, item.id)
+                    this.removeAddress.splice(index, 1)
+                }
+            }
+        },
+        watch: {
+            userInfo: function (value) {
+                if (value && value.user_id) {
+                    this.initData()
+                }
+            }
+        }
+    }
 </script>
 
 <style lang="scss" scoped>
