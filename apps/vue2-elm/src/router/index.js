@@ -62,6 +62,40 @@ const routes = [{
         path: '/forget',
         component: () =>
             import ( /* webpackChunkName: "forget" */ '@/views/forget/Forget.vue')
+    }, {
+        path: '/balance',
+        component: () =>
+            import ( /* webpackChunkName: "balance" */ '@/views/balance/Balance.vue'),
+        children: [{
+            path: 'detail',
+            component: () =>
+                import ( /* webpackChunkName: "detail" */ '@/views/balance/children/Detail.vue')
+        }]
+    }, {
+        path: '/benefit',
+        component: () =>
+            import ( /* webpackChunkName: "benefit" */ '@/views/benefit/Benefit.vue'),
+        children: [{
+            path: 'hbDescription',
+            component: () =>
+                import ( /* webpackChunkName: "hbDescription" */ '@/views/benefit/children/HbDescription.vue')
+        }, {
+            path: 'exchange',
+            component: () =>
+                import ( /* webpackChunkName: "exchange" */ '@/views/benefit/children/Exchange.vue')
+        }, {
+            path: 'commend',
+            component: () =>
+                import ( /* webpackChunkName: "commend" */ '@/views/benefit/children/Commend.vue')
+        }, {
+            path: 'hbHistory',
+            component: () =>
+                import ( /* webpackChunkName: "hbHistory" */ '@/views/benefit/children/HbHistory.vue')
+        }, {
+            path: '/download',
+            component: () =>
+                import ( /* webpackChunkName: "download" */ '@/views/download/Download.vue')
+        }]
     },
 ]
 

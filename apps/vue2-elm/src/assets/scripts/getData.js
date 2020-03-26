@@ -140,3 +140,16 @@ export const changePassword = (username, oldpassWord, newpassword, confirmpasswo
     confirmpassword,
     captcha_code
 });
+
+/**
+ * 获取红包
+ */
+
+export const getHongbaoNum = id => axios.get('/promotion/v2/users/' + id + '/hongbaos?limit=20&offset=0');
+
+/**
+ * 获取过期红包
+ */
+
+
+export const getExpired = id => axios.get('/promotion/v2/users/' + id + '/expired_hongbaos?limit=20&offset=0');
