@@ -96,7 +96,25 @@ const routes = [{
             component: () =>
                 import ( /* webpackChunkName: "download" */ '@/views/download/Download.vue')
         }]
-    },
+    }, {
+        path: '/points',
+        component: () =>
+            import ( /* webpackChunkName: "points" */ '@/views/points/Points.vue'),
+        children: [{
+            path: 'detail',
+            component: () =>
+                import ( /* webpackChunkName: "points_detail" */ '@/views/points/children/Detail.vue')
+        }]
+    }, {
+        path: '/order',
+        component: () =>
+            import ( /* webpackChunkName: "order" */ '@/views/order/Order.vue'),
+        children: [{
+            path: 'orderDetail',
+            component: () =>
+                import ( /* webpackChunkName: "orderDetail" */ '@/views/order/children/orderDetail.vue')
+        }]
+    }
 ]
 
 const router = new VueRouter({

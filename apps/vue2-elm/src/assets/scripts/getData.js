@@ -153,3 +153,20 @@ export const getHongbaoNum = id => axios.get('/promotion/v2/users/' + id + '/hon
 
 
 export const getExpired = id => axios.get('/promotion/v2/users/' + id + '/expired_hongbaos?limit=20&offset=0');
+
+/**
+ * 获取订单列表
+ */
+
+export const getOrderList = (user_id, offset) => axios.get('/bos/v2/users/' + user_id + '/orders', {
+    params: {
+        limit: 10,
+        offset,
+    }
+});
+
+/**
+ * 获取订单详情
+ */
+
+export const getOrderDetail = (user_id, orderid) => axios.get('/bos/v1/users/' + user_id + '/orders/' + orderid + '/snapshot');
