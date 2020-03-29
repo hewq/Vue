@@ -170,3 +170,18 @@ export const getOrderList = (user_id, offset) => axios.get('/bos/v2/users/' + us
  */
 
 export const getOrderDetail = (user_id, orderid) => axios.get('/bos/v1/users/' + user_id + '/orders/' + orderid + '/snapshot');
+
+
+/**
+ * 重新发送订单验证码
+ */
+
+export const payRequest = (merchantOrderNo, userId) => axios.get('/payapi/payment/queryOrder', {
+    params: {
+        merchantId: 5,
+        merchantOrderNo,
+        source: 'MOBILE_WAP',
+        userId,
+        version: '1.0.0',
+    }
+});

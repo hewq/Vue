@@ -62,7 +62,8 @@ const routes = [{
         path: '/forget',
         component: () =>
             import ( /* webpackChunkName: "forget" */ '@/views/forget/Forget.vue')
-    }, {
+    },
+    {
         path: '/balance',
         component: () =>
             import ( /* webpackChunkName: "balance" */ '@/views/balance/Balance.vue'),
@@ -71,7 +72,8 @@ const routes = [{
             component: () =>
                 import ( /* webpackChunkName: "detail" */ '@/views/balance/children/Detail.vue')
         }]
-    }, {
+    },
+    {
         path: '/benefit',
         component: () =>
             import ( /* webpackChunkName: "benefit" */ '@/views/benefit/Benefit.vue'),
@@ -96,7 +98,8 @@ const routes = [{
             component: () =>
                 import ( /* webpackChunkName: "download" */ '@/views/download/Download.vue')
         }]
-    }, {
+    },
+    {
         path: '/points',
         component: () =>
             import ( /* webpackChunkName: "points" */ '@/views/points/Points.vue'),
@@ -105,7 +108,8 @@ const routes = [{
             component: () =>
                 import ( /* webpackChunkName: "points_detail" */ '@/views/points/children/Detail.vue')
         }]
-    }, {
+    },
+    {
         path: '/order',
         component: () =>
             import ( /* webpackChunkName: "order" */ '@/views/order/Order.vue'),
@@ -113,6 +117,26 @@ const routes = [{
             path: 'orderDetail',
             component: () =>
                 import ( /* webpackChunkName: "orderDetail" */ '@/views/order/children/orderDetail.vue')
+        }]
+    },
+    {
+        path: '/vipcard',
+        component: () =>
+            import ( /* webpackChunkName: "vipcard" */ '@/views/vipcard/VipCard.vue'),
+        children: [{
+            path: 'vipDescription',
+            component: () =>
+                import ( /* webpackChunkName: "vipDescription" */ '@/views/vipcard/children/VipDescription.vue'),
+        }]
+    },
+    {
+        path: '/confirmOrder',
+        component: () =>
+            import ( /* webpackChunkName: "confirmOrder" */ '@/views/confirmOrder/ConfirmOrder.vue'),
+        children: [{
+            path: 'payment',
+            component: () =>
+                import ( /* webpackChunkName: "payment" */ '@/views/confirmOrder/children/Payment.vue'),
         }]
     }
 ]
