@@ -124,10 +124,16 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "vipcard" */ '@/views/vipcard/VipCard.vue'),
         children: [{
-            path: 'vipDescription',
-            component: () =>
-                import ( /* webpackChunkName: "vipDescription" */ '@/views/vipcard/children/VipDescription.vue'),
-        }]
+                path: 'vipDescription',
+                component: () =>
+                    import ( /* webpackChunkName: "vipDescription" */ '@/views/vipcard/children/VipDescription.vue'),
+            },
+            {
+                path: 'useCart',
+                component: () =>
+                    import ( /* webpackChunkName: "useCart" */ '@/views/vipcard/children/UseCart.vue'),
+            }
+        ]
     },
     {
         path: '/confirmOrder',
