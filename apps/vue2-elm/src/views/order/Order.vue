@@ -112,6 +112,7 @@
         },
         mounted() {
             this.initData()
+            console.log('test')
         }
     }
 </script>
